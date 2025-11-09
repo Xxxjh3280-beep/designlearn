@@ -5,7 +5,8 @@ import React from 'react';
 import SearchBar from '../components/SearchBar'; 
 import QuickAccess from '../components/QuickAccess';
 import background from '../assets/background.png';
-
+import AdCard from '../components/AdCard';
+import adcard from '../assets/12.课程封面.png'
 
 const HomePage = () => {
     return (
@@ -39,10 +40,18 @@ const HomePage = () => {
                  {/* -mt-12 让 QuickAccess 模块稍微向上与背景重叠，增强视觉效果 */}
                  <QuickAccess />
             </div>
-
+            <div className="max-w-6xl mx-auto px-4 relative z-10">
+                 {/* -mt-12 让 QuickAccess 模块稍微向上与背景重叠，增强视觉效果 */}
+                 <AdCard
+                 title=""
+                 courseName="C端体验设计全能班"
+                 price="4680.0"
+                 userCount={87}
+                 tags={['体验设计', '交互设计', '视觉营销']}
+                 adImagePath={adcard} />
             </div>
-
-        </div>
+            </div>
+            </div>
     );
 };
 

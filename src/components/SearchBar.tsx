@@ -18,6 +18,7 @@ const SearchBar: React.FC = () => {
             />
     </h1>
     
+    
 {/* searchbar */}
     <div className=" bg-white w-[85%] h-12 bg-opacity-50 p-1 transform translate-x-[5%] rounded-2xl shadow-lg flex items-center text-gray-700 ;">
         <h1 className='w-6 h-6 ml-2'>

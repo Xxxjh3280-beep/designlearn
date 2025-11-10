@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import AppLayout from './components/AppLayout'; 
 import ProductPage from './pages/ProductPage'
+import SearchPage from './pages/SearchPage';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         {
           path: "product/:productId", // 完整路径是 /about
           Component: ProductPage,
+      },
+        {
+        path: "search", 
+        Component: SearchPage, // 或者 element: <div>...</div>
       },
       {
         // 只有路径，没有 Component 或 element

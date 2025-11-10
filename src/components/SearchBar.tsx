@@ -2,10 +2,26 @@ import { useState } from 'react'
 import "tailwindcss";
 import logo from '../assets/1.Logo.png';
 import searchlogo from '../assets/searchlogo.png';
-// 显式定义组件的 Props 类型，虽然这里没有 props，但为了保持规范性
+import { useNavigate } from 'react-router-dom';
 
-// ✅ 可读性强，方便注释和修改
+
 const SearchBar: React.FC = () => {
+  // 1. 初始化 useNavigate Hook
+  const navigate = useNavigate();
+    
+  // 2. 声明状态来存储输入框的值
+  const [searchTerm, setSearchTerm] = useState('2025最新figma教程');
+
+  // 3. 定义跳转逻辑函数
+  const handleSearch = () => {
+      const trimmedTerm = searchTerm.trim();
+      if (trimmedTerm !== '') {
+          // 使用 navigate 函数进行编程化跳转
+          // 跳转到 /search 路径，并带上查询参数 q
+          // encodeURIComponent 确保中文或特殊字符在 URL 中正确编码
+          navigate(`/search?q=${encodeURIComponent(trimmedTerm)}`);
+      }
+  };
     return (
 // 根容器
 <div className='flex w-[90%] mx-auto items-center'>
@@ -28,8 +44,22 @@ const SearchBar: React.FC = () => {
                 className="w-full h-full object-contain" 
             />
         </h1>
-      <input type="text" placeholder="2025最新figma教程" className='pl-2 border-none focus:outline-none grow'/>
-      <button className="h-[90%]  text-white bg-black  flex items-center px-4 py-1 whitespace-nowrap rounded-full self-right  shrink-0  active:bg-gray-600">
+    {/* 输入框：绑定状态值和事件 */}
+      <input type="text" placeholder="2025最新figma教程" className='pl-2 border-none focus:outline-none grow'
+      value={searchTerm} // ✨ 绑定状态值
+      onChange={(e) => setSearchTerm(e.target.value)} // ✨ 更新状态
+      onKeyDown={(e) => { // 允许按回车键搜索
+          if (e.key === 'Enter') {
+              handleSearch();
+          }
+      }}
+      />
+
+      
+
+      <button 
+      onClick={handleSearch}
+      className="h-[90%]  text-white bg-black  flex items-center px-4 py-1 whitespace-nowrap rounded-full self-right  shrink-0  active:bg-gray-600">
                     搜一下
                 </button>
     </div>

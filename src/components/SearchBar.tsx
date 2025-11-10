@@ -20,7 +20,7 @@ const SearchBar: React.FC = () => {
     
     
 {/* searchbar */}
-    <div className=" bg-white w-[85%] h-12 bg-opacity-50 p-1 transform translate-x-[5%] rounded-2xl shadow-lg flex items-center text-gray-700 ;">
+    <div className=" bg-white w-[85%] h-12 bg-opacity-50 p-1 transform translate-x-[5%] rounded-2xl shadow-lg flex items-center text-gray-700  ;">
         <h1 className='w-6 h-6 ml-2'>
         <img 
                 src={searchlogo}
@@ -28,8 +28,8 @@ const SearchBar: React.FC = () => {
                 className="w-full h-full object-contain" 
             />
         </h1>
-      <input type="text" placeholder="2025最新figma教程" className='pl-2 border-none focus:outline-none'/>
-      <button className="h-[90%] text-white bg-black hover:bg-gray-700 flex items-center justify-center px-4 py-1 whitespace-nowrap rounded-full ml-5 shrink-0">
+      <input type="text" placeholder="2025最新figma教程" className='pl-2 border-none focus:outline-none grow'/>
+      <button className="h-[90%]  text-white bg-black  flex items-center px-4 py-1 whitespace-nowrap rounded-full self-right  shrink-0  active:bg-gray-600">
                     搜一下
                 </button>
     </div>

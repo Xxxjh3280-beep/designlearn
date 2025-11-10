@@ -7,12 +7,18 @@ import QuickAccess from '../components/QuickAccess';
 import background from '../assets/background.png';
 import adcard from '../assets/新课模块.png'
 import ImageSlider from '../components/ImageSlider';
+import { useOutletContext } from 'react-router-dom';
 
 // 定义广告图片数据结构
 interface AdImage {
     id: number;
     src: string; 
     alt: string; 
+}
+
+interface AppContextType {
+    themeColor: string;
+    appName: string;
 }
 
 const adImages = [
@@ -22,6 +28,8 @@ const adImages = [
 ];
 
 const HomePage = () => {
+    const { themeColor, appName } = useOutletContext<AppContextType>();
+
     return (
 // 外层容器：确保页面高度和背景色
     <div className="w-screen min-h-screen flex flex-col bg-gray-50"> 
@@ -30,6 +38,11 @@ const HomePage = () => {
         <div 
             className="w-full max-h-[20vh] relative bg-gradient-to-b from-orange-300 to-red-500 overflow-hidden z-0" 
             >
+{/* ✨ 重点：在这里使用 themeColor 和 appName */}
+<h1 className={`text-center text-white p-2 mt-4 text-xl font-bold bg-${themeColor} bg-opacity-70 mx-auto w-fit rounded`}>
+                欢迎使用 {appName}! （主题色：{themeColor}）
+            </h1>
+
             {/* 插入背景图片 */}
             <img 
                 className="h-full w-full opacity-75 m-0 p-0 object-cover" 

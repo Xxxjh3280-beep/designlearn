@@ -4,7 +4,7 @@ import React from 'react';
 
 // 导入 Swiper 组件和样式
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { Link } from 'react-router-dom';
 // 核心样式 (必须导入)
 import 'swiper/css'; 
 // 分页器（小圆点）样式
@@ -82,12 +82,15 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
                 {images.map((image) => (
                     <SwiperSlide key={image.id}>
                         {/* 图片标签 */}
-                        <img 
-                            src={image.src} 
-                            alt={image.alt} 
-                            // 关键样式：确保图片填充满 Slide 且保持比例，解决适配问题
-                            className='w-full h-full object-contain rounded-lg shadow-md' 
-                        />
+                        <Link to={`/product/${image.id}`}>
+                            {/* 图片标签 */}
+                            <img 
+                                src={image.src} 
+                                alt={image.alt} 
+                                // 关键样式：确保图片填充满 Slide 且保持比例，解决适配问题
+                                className='w-full h-full object-contain rounded-lg shadow-md' 
+                            />
+                        </Link>
                     </SwiperSlide>
                 ))}
             </Swiper>

@@ -5,52 +5,64 @@ import React from 'react';
 import SearchBar from '../components/SearchBar'; 
 import QuickAccess from '../components/QuickAccess';
 import background from '../assets/background.png';
-import AdCard from '../components/AdCard';
-import adcard from '../assets/12.课程封面.png'
+import adcard from '../assets/新课模块.png'
+import ImageSlider from '../components/ImageSlider';
+
+// 定义广告图片数据结构
+interface AdImage {
+    id: number;
+    src: string; 
+    alt: string; 
+}
+
+const adImages = [
+    { id: 1, src: adcard, alt: "新课预约广告 1" },
+    { id: 2, src: adcard, alt: "新课预约广告 2" },
+    { id: 3, src: adcard, alt: "新课预约广告 3" },
+];
 
 const HomePage = () => {
     return (
-        // 外层容器：确保页面高度和背景色
-        <div className="w-screen min-h-screen flex flex-col bg-gray-50"> 
+// 外层容器：确保页面高度和背景色
+    <div className="w-screen min-h-screen flex flex-col bg-gray-50"> 
             
-            {/* 1. 顶部背景容器 (background-top) */}
-            <div 
-                // 确保渐变色 w-full h-[36vh] relative 都在
-                className="w-full h-[30vh] relative bg-gradient-to-b from-orange-300 to-red-500 overflow-hidden z-0" 
+    {/* 1. 顶部背景容器 (background-top) */}
+        <div 
+            className="w-full max-h-[20vh] relative bg-gradient-to-b from-orange-300 to-red-500 overflow-hidden z-0" 
             >
-                {/* 插入背景图片 */}
-                <img 
-                    className="h-full w-full opacity-75 m-0 p-0 object-cover" 
-                    // 确保您的图片资源名是正确的
-                    src={background}
-                    alt="backgroundImage"
-                />
-
-                {/* 2. 搜索栏容器 (绝对定位，叠加在背景上) */}
-                {/* SearchBar 组件应该被放置在 Background 容器内部，才能相对于它定位 */}
-                <div className="absolute inset-x-0 top-[30%] flex justify-center">
-                    {/* 导入 SearchBar 组件。它内部已经包含了 ml-[5%] 等定位逻辑 */}
+            {/* 插入背景图片 */}
+            <img 
+                className="h-full w-full opacity-75 m-0 p-0 object-cover" 
+                src={background}
+                alt="backgroundImage"
+            />
+        <div className="absolute inset-0 bg-linear-to-b 
+                        from-transparent 
+                via-transparent via-80% 
+                to-neutral-200"></div>
+        {/* 搜索栏 */}
+            <div className="absolute inset-x-0 top-[30%] flex justify-center">
                     <SearchBar /> 
                 </div>
 
             </div>
-            <div className='relative grow bg-neutral-200  pt-3 -mt-30 shadow-lg rounded-t-xl '>
-            {/* 3. 快速入口模块及页面主体内容 */}
-            <div className="max-w-6xl mx-auto px-4 relative z-10">
-                 {/* -mt-12 让 QuickAccess 模块稍微向上与背景重叠，增强视觉效果 */}
-                 <QuickAccess />
-            </div>
-            <div className="max-w-6xl mx-auto px-4 relative z-10">
-                 {/* -mt-12 让 QuickAccess 模块稍微向上与背景重叠，增强视觉效果 */}
-                 <AdCard
-                 title=""
-                 courseName="C端体验设计全能班"
-                 price="4680.0"
-                 userCount={87}
-                 tags={['体验设计', '交互设计', '视觉营销']}
-                 adImagePath={adcard} />
-            </div>
-            </div>
+    {/* 灰色主内容卡片容器 */}
+    <div className='relative grow min-h-[70%]: bg-linear-to-b from-neutral-200/80 to-neutral-200  pt-2  shadow-lg rounded-t-xl -mt-12'>
+        {/* 3. 快速入口模块及页面主体内容 */}
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
+            <QuickAccess />
+        </div>
+    {/* 广告模块 */}
+    <div className="w-full mx-auto relative -mt-3 
+                h-48 sm:h-64 lg:h-72 
+                max-w-full md:max-w-4xl lg:max-w-6xl 
+                px-3 md:px-0">
+        <ImageSlider images={adImages} />
+
+        </div>
+    </div>
+
+
             </div>
     );
 };

@@ -31,9 +31,24 @@ const router = createBrowserRouter([
         {
           path: "product/:productId", // 完整路径是 /about
           Component: ProductPage,
-      }
+      },
+      {
+        // 只有路径，没有 Component 或 element
+        path: "user", // 完整路径是 /user
+        children: [
+          {
+            index: true,
+            // 当访问 /user 时显示的默认内容
+            element: <div>用户中心首页</div>, 
+          },
+          {
+            path: "profile", // 完整路径是 /user/profile
+            element: <div>用户个人资料页</div>, 
+          },
     ]
   },
+],
+  }
 ]);
 
 // 2. 使用 ReactDOM.createRoot 渲染应用

@@ -35,7 +35,7 @@ jobs:
         
       - name: 🟢 设置环境 & 安装依赖
         # 负责设置 Node.js 环境、安装 pnpm CLI，并运行 pnpm install
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: 8 
           run_install: true
@@ -47,8 +47,9 @@ jobs:
       - name: 🚀 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          # 🌟 关键修改: 将 github_token 替换为您的新 DEPLOY_TOKEN
-          github_token: ${{ secrets.DEPLOY_TOKEN }}
+          #...
+          github_token: ${{ secrets.DEPLOY_TOKEN }} # 确保是 DEPLOY_TOKEN
+          #...
           
           # 🌟 关键修改 1: 明确指定部署的目标仓库 (请确保这个路径正确!)
           repository: Xxxjh3280-beep/designlearn 

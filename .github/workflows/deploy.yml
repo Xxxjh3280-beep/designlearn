@@ -27,23 +27,15 @@ jobs:
       - name: ⬇️ Checkout 仓库代码
         uses: actions/checkout@v4
         
-      - name: 🟢 设置 Node.js 和 pnpm 环境
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm' # 启用 pnpm 缓存
           
-      - name: ⚙️ 安装 pnpm 
-        # 使用 pnpm/action-setup@v3 来安装 pnpm CLI
+      - name: 🟢 设置环境 & 安装依赖
         uses: pnpm/action-setup@v3
         with:
           version: 8 
+          run_install: true # 关键让它自动运行 pnpm install
           
-      - name: 📦 安装依赖
-        run: pnpm install 
         
       - name: 🛠️ 构建项目
-        # ⚠️ 关键修正：添加 pnpm run build 命令
         run: pnpm run build
         
       # 注意：Vite 构建默认输出到 'dist' 目录

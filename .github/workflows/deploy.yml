@@ -54,6 +54,7 @@ jobs:
           # 要部署的构建目录 (默认是 dist)
           publish_dir: ./dist
           # 部署分支，通常使用 gh-pages
+          
           publish_branch: gh-pages
           # 提交信息
           commit_message: "Deploy to GitHub Pages from ${{ github.ref }}"

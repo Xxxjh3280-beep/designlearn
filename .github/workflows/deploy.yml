@@ -23,6 +23,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    # Job 内部权限（已确认正确）
     permissions:
       contents: read
       pages: write
@@ -32,14 +33,13 @@ jobs:
       - name: ⬇️ Checkout 仓库代码
         uses: actions/checkout@v4
         
-          
       - name: 🟢 设置环境 & 安装依赖
+        # 负责设置 Node.js 环境、安装 pnpm CLI，并运行 pnpm install
         uses: pnpm/action-setup@v3
         with:
           version: 8 
-          run_install: true # 关键让它自动运行 pnpm install
+          run_install: true
           
-        
       - name: 🛠️ 构建项目
         run: pnpm run build
         
@@ -49,6 +49,14 @@ jobs:
         with:
           # 使用 GitHub Token 进行认证
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          
+          # 🌟 关键修改 1: 明确指定部署的目标仓库 (请确保这个路径正确!)
+          repository: Xxxjh3280-beep/designlearn 
+
+          # 🌟 关键修改 2: 明确指定机器人身份和邮箱，确保 git 提交合法
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com
+          
           # 要部署的构建目录 (默认是 dist)
           publish_dir: ./dist
           # 部署分支，通常使用 gh-pages

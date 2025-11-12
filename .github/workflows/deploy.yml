@@ -1,66 +1,51 @@
-name: Deploy to GitHub Pages
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
 
 on:
+  # Runs on pushes targeting the default branch
   push:
-    # 当推送到 main 分支时触发部署
-    branches:
-      - main
-  # 允许手动从 Actions 标签页触发部署
+    branches: ['main']
+
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# 设置权限，部署到 GitHub Pages 需要
+# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 取消所有先前运行的作业
+# Allow one concurrent deployment
 concurrency:
+  group: 'pages'
   cancel-in-progress: true
-  group: pages
 
 jobs:
-  build-and-deploy:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-
-    # Job 内部权限（已确认正确）
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    
     steps:
-      - name: ⬇️ Checkout 仓库代码
-        uses: actions/checkout@v4
-        
-      - name: 🟢 设置环境 & 安装依赖
-        # 负责设置 Node.js 环境、安装 pnpm CLI，并运行 pnpm install
-        uses: pnpm/action-setup@v4
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Set up Node
+        uses: actions/setup-node@v6
         with:
-          version: 8 
-          run_install: true
-          
-      - name: 🛠️ 构建项目
-        run: pnpm run build
-        
-      # 注意：Vite 构建默认输出到 'dist' 目录
-      - name: 🚀 部署到 GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+          node-version: lts/*
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
         with:
-          #...
-          github_token: ${{ secrets.DEPLOY_TOKEN }} # 确保是 DEPLOY_TOKEN
-          #...
-          
-          # 🌟 关键修改 1: 明确指定部署的目标仓库 (请确保这个路径正确!)
-          repository: Xxxjh3280-beep/designlearn 
-
-          # 🌟 关键修改 2: 明确指定机器人身份和邮箱，确保 git 提交合法
-          user_name: github-actions[bot]
-          user_email: github-actions[bot]@users.noreply.github.com
-          
-          # 要部署的构建目录 (默认是 dist)
-          publish_dir: ./dist
-          # 部署分支，通常使用 gh-pages
-          publish_branch: gh-pages
-          # 提交信息
-          commit_message: "Deploy to GitHub Pages from ${{ github.ref }}"
+          # Upload dist folder
+          path: './dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

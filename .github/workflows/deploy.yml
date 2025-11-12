@@ -47,8 +47,8 @@ jobs:
       - name: 🚀 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          # 使用 GitHub Token 进行认证
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 🌟 关键修改: 将 github_token 替换为您的新 DEPLOY_TOKEN
+          github_token: ${{ secrets.DEPLOY_TOKEN }}
           
           # 🌟 关键修改 1: 明确指定部署的目标仓库 (请确保这个路径正确!)
           repository: Xxxjh3280-beep/designlearn 
